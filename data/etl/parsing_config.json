@@ -1,0 +1,82 @@
+{
+	"education":[
+			{
+				"regex":"\t-(.*of.*) in (.*)from(.*)","keys":["degree","","specialization","school"]
+			},
+			{
+				"regex":"\t- Graduate of (.*)","keys":["school"]
+			},
+			{
+				"regex":".*- (\\w* of \\w*) in (.*) from (.*\\w)","keys":["degree","specialization","school"]
+			},
+			{
+				"regex":".*- (\\w* of \\w*) from (.*)","keys":["degree","specialization","school"]
+			},
+			{
+				"regex":".*- (\\w* of \\w*) in (.*\\w)","keys":["degree","specialization"]
+			},
+			{
+				"regex":".*- (\\w*) in (.*\\w) from (.*\\w)","keys":["degree","specialization","school"]
+			},
+			{
+				"regex":".*- (U.S. Naval Test Pilot School)","keys":["school"]
+			}
+		],
+		"person":[
+			{
+				"regex":"- (.*), (.*), (.*), (.*)","keys":["last_name","first_name","title","organization"]
+			},
+			{
+				"regex":"- (.*), (.*), (.*)","keys":["last_name","first_name","title"]
+			},
+			{
+				"regex":"- (.*), (.*), (.*), (.*), (.*)","keys":["last_name","first_name","title", "title2","organization"]
+			}
+			,
+			{
+				"regex":"- (.*), (.*)","keys":["last_name","first_name"]
+			}
+		],
+		"birth_life":[
+			{
+				"regex":".*- Born ,(.*), in (.*,.*); hometown: (.*)\\s","keys":["birth_date","birth_city","hometown","organization"]
+			},
+			{
+				"regex":".*- Born in (.*) at (.*); .*: (.*)","keys":["birth_date","birth_city","hometown"]
+			}
+			,
+			{
+				"regex":".*- Born (.*), in (.*,.*); hometown: (.*)\\s","keys":["birth_date","birth_city","hometown","organization"]
+			}
+			,
+			{
+				"regex":".*- Born, (.*\\d{4}) (.*,.*); hometown: (.*, .*)","keys":["birth_date","birth_city","hometown","organization"]
+			}
+			,
+			{
+				"regex":".*- Born (.*\\d{4}), in (.*,.*); hometown: (.*, .*)","keys":["birth_date","birth_city","hometown","organization"]
+			}
+		],
+		"spacewalks":[
+			{
+				"regex":".*- (\\d.*) spacewalk[s] for a .* of (.*)","keys":["count","time"]
+			},
+			{
+				"regex":".*- (\\d.*) spacewalk[s].*: (.*)","keys":["count","time"]
+			}
+		],
+		"time_in_space":[
+			{
+				"regex":".*- Total time in space: (.*)","keys":["time_in_space"]
+			}
+		],
+		"missions":[
+			{
+				"regex":".*- (.*) on (.*) in (.*)","keys":["mission_name","vehicle","mission_date"]
+			}
+			,
+			{
+				"regex":".*- (.*\\d*.*) in (.*)","keys":["mission_name","vehicle","mission_date"]
+			}
+		]
+}
