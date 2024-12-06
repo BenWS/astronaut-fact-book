@@ -8,8 +8,28 @@ import hashlib
 from PyInquirer import prompt
 
 
-# main functions
+class Logger:
+	'''
+	Manages writes to the output log
+	'''
+	def __init__(self):
+		self._log_list = []
 
+
+	def persist_log(self):
+		file_path = 'log.txt'
+		with open(file_path,encoding='utf-8',mode='w+') as file:
+			for item in self._log_list:
+					file.write(str(item) + '\n')
+		pass
+
+	def log(self,input_record):
+		'''
+		Log Output
+		'''
+		self._log_list.append(input_record)
+
+# main functions
 def is_major_bullet(text):
 	return text.lower().startswith('-')
 	
@@ -69,28 +89,7 @@ def parse_line(file_string):
 		else:
 			continue
 
-class Logger:
-	'''
-	Manages writes to the output log
-	'''
-	def __init__(self):
-		self._log_list = []
-
-
-	def persist_log(self):
-		file_path = 'log.txt'
-		with open(file_path,encoding='utf-8',mode='w+') as file:
-			for item in self._log_list:
-					file.write(str(item) + '\n')
-		pass
-
-	def log(self,input_record):
-		'''
-		Log Output
-		'''
-		self._log_list.append(input_record)
-	
-
+# miscellaneous functions 
 def load_database(source_database,database_type='list'):
 	'''
 	Read from parsed string results into program memory
@@ -115,7 +114,6 @@ def write_record(target_database,record):
 	'''
 	Write parsed string results in memory to database
 	'''
-
 	file_path = f'{target_database}.json'
 	with open(file_path, encoding='utf-8', mode='r+') as file:
 		database = load_database(target_database)
@@ -238,12 +236,4 @@ if __name__ == '__main__':
 
 	logger = Logger()
 	output = process_file(logger=logger)
-
-	record_exists_result = record_exists('test_database',{'my_keyasdfasd':'my_value'})
-
-	print(record_exists_result)
-
-
-	# print(line_string)
-	# print(education_value)
 	logger.persist_log()
