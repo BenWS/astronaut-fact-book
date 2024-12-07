@@ -4,9 +4,8 @@ import re
 import json
 import hashlib
 
-# pyInquirer for semi-automatic parsing interpretation
-from PyInquirer import prompt
-
+# prompt_toolkit for semi-automatic parsing interpretation
+from prompt_toolkit.shortcuts import radiolist_dialog
 
 class Logger:
   '''
@@ -70,18 +69,15 @@ def parse_line(file_string):
 
             match_list.append({'match_category':match_category,'match_dict':match_dict})		
     
-    questions = {
-      'type':'list',
-      'name':'parsing_result',
-      'message':'Which result?',
-      'choices': list(set([json.dumps(match) for match in match_list])) + ['Retry','Skip']
-    }
+    selections = radiolist_dialog(
+      title='Parsing Results',
+      text=f'Which result?\n\n{file_string}',
+      values=list(set([(json.dumps(match),json.dumps(match)) for match in match_list])) + [('Retry','Retry'),('Skip','Skip')]
+		).run()
 
     refresh_screen()
-    print(file_string)
-    selections = prompt(questions)
 
-    selection = selections['parsing_result']
+    selection = selections
     if selection =='Skip':
       return None
     elif selection != 'Retry':
@@ -230,8 +226,6 @@ def process_file(logger):
     
     return output
       
-
-  
 if __name__ == '__main__':
 
   logger = Logger()
